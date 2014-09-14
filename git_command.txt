@@ -1,0 +1,54 @@
+git 参考手册：http://gitref.justjavac.com/basic/#add
+
+1、克隆项目 git clone https://github.com/liuwei001/gitdemo.git
+2、添加文件到缓存：git add readme.txt
+3、查看修改状态：  git status
+  git status -s  #简易版本 
+  git status readme.txt
+4、比较内容： git diff
+   git diff --cached #查看已缓存的改动
+   git diff HEAD 查看已缓存的与未缓存的所有改动
+   git diff --stat 显示摘要而非整个 diff
+5、提交内容: git commit
+   git commit -am "提交描述" #自动将在提交前将已记录、修改的文件放入缓存区
+6、取消已缓存内容：git reset
+   git reset HEAD -- readme.txt  #HEAD是缓存版本号
+   git reset 74e3bde35570573cd31368cd6bd4feafe5addd68 -- readme.txt
+7、放弃修改内容：git checkout
+   git checkout readme.txt
+8、查看历史版本的内容: git show
+   git show 74e3bde35570573cd31368cd6bd4feafe5addd68 -- readme.txt
+   git show 74e3bde35570573cd31368cd6bd4feafe5addd68:src/com/gitdemo/test/readme.txt
+9、查看提交日志：git log
+   git log readme.txt
+   git log --pretty=oneline readme.txt  #查看readme.txt文件的历史变动，简易版本
+   git log --author #只寻找某个特定作者的提交'
+   git log --grep 根据提交注释过滤提交记录
+   git log --oneline --graph 拓扑图形式显示日志
+   git log --oneline --decorate --graph 可以查看标签
+10、查看分支：git branch
+    git branch (branchname) #创建分支
+    git checkout -b (branchname) #创建新分支，并立即切换到它
+    git branch -d (branchname) #删除分支
+   错误的： git branch -r -d origin/branch-name #只能删除本地对该远程的track
+   正确的： git push origin :branch-name #冒号前面的空格不能少，原理是把一个空分支push到server上，相当于删除该分支。
+11、内容合并：git merge
+    git merge branch1 #合并branch1分支的数据
+12、远程： git remote
+    git remote -v # 列出远程别名
+    git remote add github git@github.com:schacon/hw.git #添加远程
+    git remote rm github #删除远程
+13、远程数据获取: git fetch
+    git fetch origin #从远端仓库下载新分支与数据
+    git pull origin #相当于git fetch之后git merge合并
+14、远程数据推送：git push
+    git push origin master #推送你的master分支与数据到远端仓库
+    git push origin branch1 #推送分支到远程
+15、打标签：git tag
+    git tag -a v1.0 -m 'my version 1.0' #标签+注释
+    git push origin [tagname] #将标签推送之远程
+    git push origin --tags #一次性将所有标签推送至远程
+
+
+
+
