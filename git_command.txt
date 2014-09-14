@@ -42,7 +42,7 @@ git 参考手册：http://gitref.justjavac.com/basic/#add
     git fetch origin #从远端仓库下载新分支与数据
     git pull origin #相当于git fetch之后git merge合并
 14、远程数据推送：git push
-    git push origin master #推送你的master分支与数据到远端仓库
+    git push -u origin master #推送你的master分支与数据到远端仓库
     git push origin branch1 #推送分支到远程
 15、打标签：git tag
     git tag -a v1.0 -m 'my version 1.0' #标签+注释
