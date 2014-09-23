@@ -1,6 +1,8 @@
 git 参考手册：http://gitref.org/zh/remotes/
 
 1、克隆项目 git clone https://github.com/liuwei001/gitdemo.git
+   git clone -b <branch> <remote_repo> #clone某个分支
+
 2、添加文件到缓存：git add readme.txt
 3、查看修改状态：  git status
   git status -s  #简易版本 
@@ -33,9 +35,11 @@ git 参考手册：http://gitref.org/zh/remotes/
 10、查看分支：git branch
     git branch (branchname) #创建分支
     git checkout -b (branchname) #创建新分支，并立即切换到它
+    git checkout -b (branchname) origin #远程分支
     git branch -d (branchname) #删除分支
    错误的： git branch -r -d origin/branch-name #只能删除本地对该远程的track
    正确的： git push origin :branch-name #冒号前面的空格不能少，原理是把一个空分支push到server上，相当于删除该分支。
+   git branch -m <old_branch_name> <new_branch_name>  重命名
 11、内容合并：git merge
     git merge branch1 #合并branch1分支的数据
 12、远程： git remote
@@ -54,7 +58,8 @@ git 参考手册：http://gitref.org/zh/remotes/
     git tag -a v1.0 -m 'my version 1.0' #标签+注释
     git push origin [tagname] #将标签推送之远程
     git push origin --tags #一次性将所有标签推送至远程
-
-
+16、git clone svn
+    git svn clone svn://srvhost/proj -T trunk -t tags -b branches
+    git svn clone file:///tmp/test-svn -s 
 
 
