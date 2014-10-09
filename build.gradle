@@ -201,3 +201,8 @@ task prodWar(type: War){
 	httpPort = 8080
 	stopPort = 8089
 	stopKey  = 'ss'
+
+task "create-dirs" << {
+   sourceSets*.java.srcDirs*.each { it.mkdirs() }
+   sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+}
