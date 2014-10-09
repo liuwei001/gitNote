@@ -1,0 +1,203 @@
+import org.gradle.plugins.ide.eclipse.model.Facet
+//apply plugin: 'war'  					 //指定web项目，项目编译时生成项目的war包
+apply plugin: 'eclipse-wtp'  			 //插件将构建web项目的开发环境，生成所需要的.project,.classpath等文件
+apply plugin: 'maven'  				//使用maven做为jar包的信赖管理，通过mave仓库下载项目所需的信赖包
+apply plugin: "maven-publish"    //上传jar包到mave仓库
+apply plugin: 'jetty'						//加入jetty的支持，代码修改后直接执行命令gradle jettyRun即可运行web项目
+
+sourceCompatibility = 1.6 // 设置 JDK 版本
+targetCompatibility = 1.6  //设置目标发行版本
+
+
+group = "com.foresealife.weshopweb" //组id
+//version = "1.0.1-SNAPSHOT" //版本信息
+//version = "1.0.1-RELEASE" //版本信息
+version = ""
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'//设置编码
+
+defaultTasks 'clean'
+
+//jar包下载  设置 maven 库地址
+repositories {
+     mavenLocal()      //从本地仓库下载jar包
+     maven {
+         url "http://10.50.133.88:8081/nexus/content/groups/public/"  // 私服仓库地址
+     }
+     mavenCentral()   //从中央仓库下载
+}
+// 设置依赖
+dependencies {
+		compile fileTree(dir: 'libs', include: '*.jar')  
+        compile (  
+            'org.slf4j:slf4j-log4j12:1.7.5',
+            'org.slf4j:slf4j-jdk14:1.7.5',  
+            'javax.activation:activation:1.1.1',
+            'aopalliance:aopalliance:1.0',
+            'asm:asm:3.1',
+            'org.jasig.cas.client:cas-client-core:3.1.11',
+            'commons-beanutils:commons-beanutils:1.8.0',
+            'commons-cli:commons-cli:1.2',
+            'commons-codec:commons-codec:1.4',
+            'commons-collections:commons-collections:3.2.1',
+            'commons-configuration:commons-configuration:1.6',
+            'commons-fileupload:commons-fileupload:1.3',
+            'commons-httpclient:commons-httpclient:3.1',
+            'commons-io:commons-io:2.1',
+            'org.apache.commons:commons-lang3:3.3.2',
+            'commons-logging:commons-logging:1.1.1',
+            'commons-net:commons-net:1.4.1',
+            'commons-pool:commons-pool:1.6',
+            'com.alibaba:druid:1.0.7',
+            'com.alibaba:fastjson:1.1.41',
+            'org.freemarker:freemarker:2.3.16',
+            'log4j:log4j:1.2.16',
+            'ognl:ognl:3.0.1',
+            'org.springframework:spring-aop:3.2.2.RELEASE',
+            'org.springframework:spring-aspects:3.2.2.RELEASE',
+            'org.springframework:spring-beans:3.2.2.RELEASE',
+            'org.springframework:spring-context:3.2.2.RELEASE',
+            'org.springframework:spring-context-support:3.2.2.RELEASE',
+            'org.springframework.data:spring-data-commons:1.6.3.RELEASE',
+            'org.springframework.data:spring-data-commons-core:1.2.1.RELEASE',
+            'org.springframework:spring-expression:3.2.2.RELEASE',
+            'org.springframework:spring-instrument:3.2.2.RELEASE',
+            'org.springframework.webflow:spring-js:2.3.0.RELEASE',
+            'org.springframework.webflow:spring-js-resources:2.3.0.RELEASE',
+            'org.springframework:spring-orm:3.2.1.RELEASE',
+            'org.springframework:spring-oxm:3.2.2.RELEASE',
+            'org.springframework.security:spring-security-cas:3.1.0.RELEASE',
+            'org.springframework.security:spring-security-config:3.1.0.RELEASE',
+            'org.springframework.security:spring-security-core:3.1.0.RELEASE',
+            'org.springframework.security:spring-security-crypto:3.1.0.RELEASE',
+            'org.springframework.security:spring-security-web:3.1.0.RELEASE',
+            'org.springframework:spring-tx:3.2.2.RELEASE',
+            'org.springframework:spring-web:3.2.2.RELEASE',
+            'org.springframework.webflow:spring-webflow:2.3.0.RELEASE',
+            'org.springframework:spring-webmvc:3.2.2.RELEASE',
+			'taglibs:standard:1.1.1',
+			'org.apache.commons:commons-math:2.1',
+			'javax.servlet:jstl:1.2', //加入包中，否则发布到tomcat报错，jetty与jboss正常
+			
+			'com.101tec:zkclient:0.3',
+			'org.apache.neethi:neethi:2.0.4',
+			'org.jboss.netty:netty:3.2.5.Final'
+			
+        )  
+         providedCompile (
+         	       'javax.servlet:servlet-api:2.5', // 编译期
+         	       'javax.servlet:jsp-api:2.0'
+         )
+    	// providedRuntime 'javax.servlet:jstl:1.2'    // 运行时
+    	testCompile(
+    		'org.springframework:spring-test:3.2.2.RELEASE',
+    		'junit:junit:4.11'
+    	)
+    }  
+    
+//jar包上传
+//configurations {
+// resultArchives
+//}
+
+//artifacts{
+// resultArchives file: file('libs/*.jar')
+//}
+ 
+//uploadArchives {
+//       repositories {
+//            mavenDeployer {
+//                pom.groupId = "com.example.hua"
+//                pom.artifactId = "jar"
+//                pom.version = "1.0.0-SNAPSHOT"
+//                repository(url: "http://127.0.0.1:8081/nexus/content/repositories/snapshots/") {
+//                    authentication(userName: "admin", password: "admin123")
+//                }
+//           }
+//        }
+//    }
+
+
+//复制jar
+//configurations {
+//  resultArchives
+//}
+
+//uploadArchives {
+//    repositories {
+//        flatDir {
+//            dirs 'lib'
+ //       }
+//    }
+//}
+
+//artifacts{
+//  resultArchives file: file('libs/gradle-wrapper.jar')
+//}
+
+//task wrapper(type: Wrapper) { 
+//gradleVersion = '2.0' 
+//} 
+
+// 设置 Project Facets
+eclipse {
+    wtp {
+        facet {
+            facet name: 'jst.web', type: Facet.FacetType.fixed
+            facet name: 'wst.jsdt.web', type: Facet.FacetType.fixed
+            facet name: 'jst.java', type: Facet.FacetType.fixed
+            facet name: 'jst.web', version: '2.4'
+            facet name: 'jst.java', version: '1.6'
+            facet name: 'wst.jsdt.web', version: '1.0'
+        }
+    }
+}
+
+/*将src/main/java编译的class打包成${project.name}-${version}.jar放入到build/libs目录下,配置文件没必要打包*/  
+task jarWithoutResources(type: Jar) {  
+    baseName project.name  
+    from("$buildDir/classes/main")  
+} 
+/*1.将$projectDir/resources下的配置文件(生产上的配置文件)拷贝到WEB-INF/classes目录,不打包是为了方便修改配置*/  
+/*2.将sourceSet.main下面编译的文件和资源文件剔除:*/  
+/*3.将前一步打包的jar文件放入WEB-INF/lib目录下*/  
+//打uat环境war包
+task uatWar(type: War){  
+    from("$projectDir/src/main/resources") {  
+        include "**/*" 
+        into("WEB-INF/classes")  
+    }  
+    from("$projectDir/src/main/uatRes") {  
+        include "*.properties"  
+        into("WEB-INF/classes")  
+    }  
+}
+
+//打生产环境war包
+task prodWar(type: War){  
+    dependsOn jarWithoutResources  
+    from("$projectDir/src/main/resources") {  
+       // include "*.properties"  
+        into("WEB-INF/classes")  
+    }  
+    
+    from("$projectDir/src/main/prodRes") {  
+        include "*.properties"  
+        into("WEB-INF/classes")  
+    }  
+    classpath=classpath - sourceSets.main.output  
+    classpath fileTree(dir:libsDir, include:"${project.name}-${version}.jar")  
+}
+
+/*jettyRun{
+    webAppSourceDirectory file("$projectDir/src/main/webapp")
+    httpPort = 8080
+	stopPort = 8089
+	stopKey  = 'ss'
+    contextPath project.name
+    scanIntervalSeconds 0
+    reload "automatic"
+}*/
+	httpPort = 8080
+	stopPort = 8089
+	stopKey  = 'ss'
