@@ -49,6 +49,11 @@ git 参考手册：http://gitref.org/zh/remotes/
 13、远程数据获取: git fetch
     git fetch origin #从远端仓库下载新分支与数据
     git pull origin #相当于git fetch之后git merge合并
+
+git fetch origin master
+git log -p master..origin/master
+git merge origin/master
+
 14、远程数据推送：git push
     git push -u origin master #推送你的master分支与数据到远端仓库
     git push origin master （省略了<dst>，等价于“git push origin master:master”）
@@ -62,4 +67,18 @@ git 参考手册：http://gitref.org/zh/remotes/
     git svn clone svn://srvhost/proj -T trunk -t tags -b branches
     git svn clone file:///tmp/test-svn -s 
 
-
+17、git commit --amend 修改最后一次提交de 注释
+    修改以前提交的记录：
+      git rebase -i HEAD~3
+       表示要修改当前版本的倒数第三次状态。
+        这个命令出来之后，会出来三行东东：
+        pick:*******
+        pick:*******
+        pick:*******
+        如果你要修改哪个，就把那行的pick改成edit，然后退出。
+ 
+        这时通过git log你可以发现，git的最后一次提交已经变成你选的那个了，这时再使用：
+        git commit --amend
+        来对commit进行修改。
+        修改完了之后，要回来对不对？
+        使用git rebase --continue
