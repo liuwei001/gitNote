@@ -54,6 +54,18 @@ git fetch origin master
 git log -p master..origin/master
 git merge origin/master
 
+ 以上命令的含义：
+   首先从远程的origin的master主分支下载最新的版本到origin/master分支上
+   然后比较本地的master分支和origin/master分支的差别
+   最后进行合并
+   上述过程其实可以用以下更清晰的方式来进行：
+ git fetch origin master:tmp
+git diff tmp 
+git merge tmp
+
+    从远程获取最新的版本到本地的test分支上
+   之后再进行比较合
+
 14、远程数据推送：git push
     git push -u origin master #推送你的master分支与数据到远端仓库
     git push origin master （省略了<dst>，等价于“git push origin master:master”）
