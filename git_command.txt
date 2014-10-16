@@ -41,7 +41,7 @@ git 参考手册：http://gitref.org/zh/remotes/
    正确的： git push origin :branch-name #冒号前面的空格不能少，原理是把一个空分支push到server上，相当于删除该分支。
    git branch -m <old_branch_name> <new_branch_name>  重命名
 11、内容合并：git merge
-    git merge branch1 #合并branch1分支的数据
+    git merge --no-ff branch1 #合并branch1分支的数据 (--no-ff ：no fast-forward merge,在分支上生成一个新节点。为了保证版本演进的清晰)
 12、远程： git remote
     git remote -v # 列出远程别名
     git remote add github git@github.com:schacon/hw.git #添加远程
@@ -94,3 +94,8 @@ git merge tmp
         来对commit进行修改。
         修改完了之后，要回来对不对？
         使用git rebase --continue
+18、配置一些git的常用命令alias
+ 	git config --system alias.st status     #git st
+ 	git config --system alias.ci commit   #git commit
+ 	git config --system alias.co checkout  #git co
+ 	git config --system alias.br  branch  #git branch

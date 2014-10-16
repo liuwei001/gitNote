@@ -1,0 +1,17 @@
+1、日志输出。gradle task时可以适时的调整信息输出等级，以便更方便的观看执行结果。
+-q(或--quiet)是启用重要信息级别，该级别下只会输出自己在命令行下打印的信息及错误信息。
+-i(或--info)则会输出除debug以外的所有信息。
+-d（或--debug)会输出所有日志信息。
+比如一个build.gradle有这样一个task。
+task hello << {
+     println 'hello world!'
+}
+加入-q与不加-q的输出结果不同。
+2、堆栈跟踪 -s(或--stacktrace)来输出详细的错误堆栈。你还可以使用-S(或--full-stacktrace)来输出全部堆栈信息
+3、 gradle tasks --all 显示task之间的依赖关系
+4、 gradle -q dependencies 查看指定阶段的依赖关系
+5、 gradle dependencyInsight --dependency junit --configuration testCompile 查看指定dependency的依赖情况
+6、 gradle build --profile 使用--profile命令行可以产生build运行时间的报告
+7、 gradle -m build试运行build。如果你想知道某个task执行时那些task会被一起执行，但是你又不想真正的执行这些task，可以使用-m来试运行。
+8、 gradle --gui Gradle的图形界面
+9、 gradle -recompile-scripts 重新编译Gradle脚本
