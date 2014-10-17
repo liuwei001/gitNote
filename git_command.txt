@@ -99,6 +99,7 @@ git merge tmp
  	git config --system alias.ci commit   #git commit
  	git config --system alias.co checkout  #git co
  	git config --system alias.br  branch  #git branch
+  	git config --global push.default simple #默认git push命令，将推送当前分支至远程同名分支
 19、3. 克隆 指定的远程分支
 如果你渴望只克隆远程仓库的一个指定分支，而不是整个仓库分支，这对你帮助很大。
 git init
