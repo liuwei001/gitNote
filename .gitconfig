@@ -1,0 +1,19 @@
+[user]
+	name = liuwei
+	email = liuwei_lotus@163.com
+[http]
+	proxy = http://10.50.135.250:8080
+
+[alias]
+	st = status
+	ci = commit
+        br = branch
+	co = checkout
+        df = diff
+	his = !git log --numstat --pretty=format:\"%Cred%an%Creset@%ar %Cgreen%s%Creset\" HEAD
+        ls = log --stat --summary --date=local
+	hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[color]
+	ui = true
+[core]
+	excludesfile = c:/Users/liuwei/.gitignore
