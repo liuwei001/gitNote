@@ -66,6 +66,10 @@ git merge tmp
     从远程获取最新的版本到本地的test分支上
    之后再进行比较合
 
+#更新某一个文件
+git fetch
+git checkout origin/master -- path/to/file
+
 14、远程数据推送：git push
     git push -u origin master #推送你的master分支与数据到远端仓库
     git push origin master （省略了<dst>，等价于“git push origin master:master”）
@@ -105,3 +109,21 @@ git merge tmp
 git init
 git remote add -t BRANCH_NAME_HERE -f origin REMOTE_REPO_URL_PATH_HERE
 git checkout BRANCH_NAME_HERE
+
+20、 git查看某个文件修改历史
+git blame filename.c 显示文件的每一行是在那个版本最后修改。
+git whatchanged charge.lua 显示某个文件的每个版本提交信息：提交日期，提交人员，版本号，提交备注（没有修改细节）
+git show 7aee80cd2afe3202143f379ec671917bc86f9771 显示某个版本的修改详情
+和
+git log -p 7aee80cd2afe3202143f379ec671917bc86f9771 
+git log --pretty=oneline  显示每个版本都修改了那些文件
+git log --pretty=oneline  charge.lua 与上一样，不过每个修改版本都包含了
+git show 5aa1be6674ecf6c36a579521708bf6e5efb6795f charge.lua  显示某个版本的某个文件修改情况
+
+21、忽略文件
+ git config --global core.excludefile ~/.gitignore
+ 还有一种情况，就是已经commit了，再加入gitignore是无效的，所以需要删除下缓存
+ git rm -r --cached ignore_file
+注意： .gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。
+    正确的做法是在每个clone下来的仓库中手动设置不要检查特定文件的更改情况。
+    git update-index --assume-unchanged PATH    在PATH处输入要忽略的文件。
