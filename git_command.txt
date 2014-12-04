@@ -1,5 +1,7 @@
 git 参考手册：http://gitref.org/zh/remotes/
 
+ssh-keygen -t rsa -C "168237@qq.com"
+
 1、克隆项目 git clone https://github.com/liuwei001/gitdemo.git
    git clone -b <branch> <remote_repo> #clone某个分支
 
@@ -46,6 +48,7 @@ git 参考手册：http://gitref.org/zh/remotes/
     git remote -v # 列出远程别名
     git remote add github git@github.com:schacon/hw.git #添加远程
     git remote rm github #删除远程
+    git remote set-url origin git@github.com:someaccount/someproject.git 修改
 13、远程数据获取: git fetch
     git fetch origin #从远端仓库下载新分支与数据
     git pull origin #相当于git fetch之后git merge合并
@@ -127,3 +130,20 @@ git show 5aa1be6674ecf6c36a579521708bf6e5efb6795f charge.lua  显示某个版本的某个
 注意： .gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。
     正确的做法是在每个clone下来的仓库中手动设置不要检查特定文件的更改情况。
     git update-index --assume-unchanged PATH    在PATH处输入要忽略的文件。
+
+22、Diff
+At a Windows command prompt enter the commands: 
+  git config --global diff.tool bc3
+  git config --global difftool.bc3.cmd "\"c:/program files/beyond compare 3/bcomp.exe\" \"$LOCAL\" \"$REMOTE\""
+  git config --global difftool.prompt false
+To launch a diff with BC3, use the command "git difftool foofile.txt".
+
+23、Merge 
+At a Windows command prompt, enter the commands: 
+  git config --global merge.tool bc3
+  git config --global mergetool.bc3.cmd "\"c:/program files/beyond compare 3/bcomp.exe\" \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\""
+  git config --global mergetool.bc3.trustExitCode true
+To launch a 3-way merge with BC3, use the command "git mergetool foofile.txt".
+
+24、git stash 暂存
+    git stash pop
